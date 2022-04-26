@@ -15,6 +15,7 @@ use Uniwise\Doctrine\Entity\CarRepository;
 use Uniwise\Doctrine\Entity\Equipment;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Put;
+use FOS\RestBundle\Controller\Annotations as Rest;
 /**
  * @Route("/car")
  */

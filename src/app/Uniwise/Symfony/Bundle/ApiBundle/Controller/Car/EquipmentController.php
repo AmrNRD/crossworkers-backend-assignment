@@ -23,7 +23,7 @@ class EquipmentController extends FOSRestController
 {
 
     /*
-    * @var CarRepository
+    * @var EquipmentRepository
     */
     protected $equipmentRepository;
 

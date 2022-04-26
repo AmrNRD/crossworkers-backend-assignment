@@ -50,15 +50,15 @@ class Car {
     /**
      * @ORM\ManyToMany(targetEntity="Equipment")
      */
-    private $carEquipment;
+    private $carEquipments;
 
     public function __construct()
     {
-        $this->carEquipment = new ArrayCollection();
+        $this->carEquipments = new ArrayCollection();
     }
 
     /**
-     * @param string $make
+     * @param string $brand
      * @return $this
      */
     public function setBrand(string $brand): self
@@ -106,11 +106,11 @@ class Car {
      */
     public function addEquipment(Equipment $equipment)
     {
-        if ($this->carEquipment->contains($equipment)) {
+        if ($this->carEquipments->contains($equipment)) {
             return;
         }
 
-        $this->carEquipment[] = $equipment;
+        $this->carEquipments[] = $equipment;
     }
 
     /**
@@ -118,10 +118,10 @@ class Car {
      */
     public function removeEquipment(Equipment $equipment)
     {
-        if (!$this->carEquipment->contains($equipment)) {
+        if (!$this->carEquipments->contains($equipment)) {
             return;
         }
 
-        $this->carEquipment->removeElement($equipment);
+        $this->carEquipments->removeElement($equipment);
     }
 }

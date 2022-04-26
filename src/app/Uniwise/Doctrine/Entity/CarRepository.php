@@ -92,11 +92,6 @@ class CarRepository extends ServiceEntityRepository {
                         ? $q->andWhere("car.${key} = '${value}'")
                         : $q->where("car.${key} = '${value}'");
                     $index++;
-                }else if(in_array($key,$this->allowedFiltersExact)){
-                    $index > 0
-                        ? $q->andWhere("car.${key} = '${value}'")
-                        : $q->where("car.${key} = '${value}'");
-                    $index++;
                 }else if(array_key_exists($key,$this->allowedRelationFilters)){
                     $methodToCall=$this->allowedRelationFilters[$key];
                     $q=$this->$methodToCall($q,$value,$index>0);
@@ -113,8 +108,14 @@ class CarRepository extends ServiceEntityRepository {
 
     public function filterEquipments(QueryBuilder $queryBuilder,string $values,bool $set_and){
 
-        $queryBuilder->expr()->exists('select id,name from `equipments` inner join `car_equipment` on `equipments`.`id`
-                             = `car_equipment`.`equipment_id` where `car`.`id` = `car_equipment`.`car_id` and `name`='."'".$values."'");
+        $queryBuilder->join('car.carEquipments', 'e');
+        if($set_and){
+            $queryBuilder->andWhere("e.name LIKE '%$values%'");
+        }
+        else{
+            $queryBuilder->where("e.name LIKE '%$values%'");
+        }
+
         return $queryBuilder;
     }
 
