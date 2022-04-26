@@ -108,7 +108,7 @@ class CarRepository extends ServiceEntityRepository {
 
     public function filterEquipments(QueryBuilder $queryBuilder,string $values,bool $set_and){
 
-        $queryBuilder->join('car.carEquipments', 'e');
+        $queryBuilder->join('car.carEquipment', 'e');
         if($set_and){
             $queryBuilder->andWhere("e.name LIKE '%$values%'");
         }
